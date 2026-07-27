@@ -1,0 +1,142 @@
+[
+  {
+    "claim": "Hybrid retrieval combining BM25 lexical matching with dense embeddings outperforms dense-only retrieval on out-of-domain benchmarks, where dense retrievers degrade most.",
+    "source_url": "https://arxiv.org/abs/2104.08663",
+    "source_title": "BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models",
+    "credibility": "primary",
+    "published_on": "2021-04-17"
+  },
+  {
+    "claim": "Reranking an initial candidate set with a cross-encoder consistently improves precision at the top of the ranking compared with using bi-encoder scores alone.",
+    "source_url": "https://arxiv.org/abs/1908.10084",
+    "source_title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+    "credibility": "primary",
+    "published_on": "2019-08-27"
+  },
+  {
+    "claim": "Retrieval-augmented generation reduces hallucination relative to a parametric-only model by grounding generation in retrieved passages, but does not eliminate it when retrieval returns irrelevant context.",
+    "source_url": "https://arxiv.org/abs/2005.11401",
+    "source_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+    "credibility": "primary",
+    "published_on": "2020-05-22"
+  },
+  {
+    "claim": "Language models exhibit a lost-in-the-middle effect: retrieval quality degrades when relevant information sits in the middle of a long context rather than at its start or end.",
+    "source_url": "https://arxiv.org/abs/2307.03172",
+    "source_title": "Lost in the Middle: How Language Models Use Long Contexts",
+    "credibility": "primary",
+    "published_on": "2023-07-06"
+  },
+  {
+    "claim": "Chain-of-thought prompting improves performance on multi-step reasoning tasks, with gains that grow as model scale increases.",
+    "source_url": "https://arxiv.org/abs/2201.11903",
+    "source_title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+    "credibility": "primary",
+    "published_on": "2022-01-28"
+  },
+  {
+    "claim": "Self-consistency decoding, which samples multiple reasoning paths and takes a majority vote, improves arithmetic and commonsense reasoning accuracy over greedy single-path decoding.",
+    "source_url": "https://arxiv.org/abs/2203.11171",
+    "source_title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+    "credibility": "primary",
+    "published_on": "2022-03-21"
+  },
+  {
+    "claim": "Models can meaningfully critique and revise their own outputs when given explicit evaluation criteria, though self-correction without external feedback can also degrade correct answers.",
+    "source_url": "https://arxiv.org/abs/2303.17651",
+    "source_title": "Self-Refine: Iterative Refinement with Self-Feedback",
+    "credibility": "primary",
+    "published_on": "2023-03-30"
+  },
+  {
+    "claim": "Indirect prompt injection lets an attacker who controls retrieved content hijack an LLM application's instructions, making input provenance a security boundary rather than a formatting detail.",
+    "source_url": "https://arxiv.org/abs/2302.12173",
+    "source_title": "Not What You've Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection",
+    "credibility": "primary",
+    "published_on": "2023-02-23"
+  },
+  {
+    "claim": "The OWASP Top 10 for LLM Applications ranks prompt injection as the highest-severity risk class for LLM-integrated systems.",
+    "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+    "source_title": "OWASP Top 10 for Large Language Model Applications",
+    "credibility": "primary",
+    "published_on": "2023-08-01"
+  },
+  {
+    "claim": "OpenTelemetry provides a vendor-neutral specification for distributed traces, metrics and logs, allowing spans emitted by an application to be exported to any conformant backend.",
+    "source_url": "https://opentelemetry.io/docs/specs/otel/",
+    "source_title": "OpenTelemetry Specification",
+    "credibility": "primary",
+    "published_on": "2024-01-15"
+  },
+  {
+    "claim": "Structured logging with consistent field names makes log data queryable and aggregatable, which unstructured string logs do not support without brittle parsing.",
+    "source_url": "https://cloud.google.com/logging/docs/structured-logging",
+    "source_title": "Google Cloud - Structured Logging",
+    "credibility": "primary",
+    "published_on": "2024-06-01"
+  },
+  {
+    "claim": "Prompt caching reduces cost and time-to-first-token for requests that share a long, stable prefix, because the cached prefix is not recomputed on each call.",
+    "source_url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview",
+    "source_title": "Vertex AI - Context Caching Overview",
+    "credibility": "primary",
+    "published_on": "2024-09-10"
+  },
+  {
+    "claim": "Routing simpler requests to smaller models while reserving larger models for complex reasoning reduces average cost per request substantially, with the saving governed by the share of traffic that is routable.",
+    "source_url": "https://arxiv.org/abs/2403.12031",
+    "source_title": "RouterBench: A Benchmark for Multi-LLM Routing Systems",
+    "credibility": "primary",
+    "published_on": "2024-03-18"
+  },
+  {
+    "claim": "LLM-as-a-judge evaluation correlates well with human preference judgements on open-ended generation tasks, but exhibits position bias and verbosity bias that must be controlled for.",
+    "source_url": "https://arxiv.org/abs/2306.05685",
+    "source_title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+    "credibility": "primary",
+    "published_on": "2023-06-09"
+  },
+  {
+    "claim": "Search engines truncate title tags in results at roughly 60 characters and meta descriptions at roughly 160 characters, so content beyond those lengths is not shown to searchers.",
+    "source_url": "https://developers.google.com/search/docs/appearance/title-link",
+    "source_title": "Google Search Central - Influencing Your Title Links",
+    "credibility": "primary",
+    "published_on": "2024-02-20"
+  },
+  {
+    "claim": "Publishing multiple pages targeting the same query causes them to compete with one another in ranking, a pattern commonly called keyword cannibalisation.",
+    "source_url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+    "source_title": "Google Search Central - SEO Starter Guide",
+    "credibility": "primary",
+    "published_on": "2024-05-14"
+  },
+  {
+    "claim": "Agent frameworks that decompose work across specialised sub-agents outperform single monolithic prompts on long-horizon tasks, primarily by keeping each sub-agent's context focused.",
+    "source_url": "https://arxiv.org/abs/2308.08155",
+    "source_title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+    "credibility": "primary",
+    "published_on": "2023-08-16"
+  },
+  {
+    "claim": "Practitioners report that summarising older conversation turns rather than truncating them preserves task-relevant context at a fraction of the token cost in long-running agent sessions.",
+    "source_url": "https://www.reddit.com/r/agentdevelopmentkit/",
+    "source_title": "Agent Development Kit community discussion",
+    "credibility": "community",
+    "published_on": "2025-04-02"
+  },
+  {
+    "claim": "Teams migrating to managed agent runtimes cite operational burden reduction as the main driver, though independent measurements of the saving are scarce.",
+    "source_url": "https://news.example.com/managed-agent-runtimes-adoption",
+    "source_title": "Industry survey: managed agent runtime adoption",
+    "credibility": "community",
+    "published_on": "2025-06-30"
+  },
+  {
+    "claim": "Google Cloud Data Loss Prevention can inspect and de-identify sensitive data in text using configurable infoType detectors before that text is persisted.",
+    "source_url": "https://cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data",
+    "source_title": "Google Cloud - De-identifying Sensitive Data",
+    "credibility": "primary",
+    "published_on": "2024-08-05"
+  }
+]

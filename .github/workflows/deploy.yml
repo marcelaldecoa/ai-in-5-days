@@ -1,0 +1,136 @@
+name: Deploy
+
+# Continuous deployment: every merge to main redeploys the agent.
+#
+# Prerequisite (one time): run `make deploy` locally with GITHUB_REPO set in
+# deployment/config.env. That provisions Workload Identity Federation and prints
+# the repository variables to set here. See DEPLOYMENT.md.
+#
+# If those variables are absent the workflow exits cleanly with a notice rather
+# than failing, so a fork or a fresh clone does not show a permanently red badge.
+
+on:
+  push:
+    branches: [main]
+    # Docs-only commits do not need a redeploy.
+    paths-ignore:
+      - "**/*.md"
+      - "docs/**"
+      - ".gitignore"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: false
+        default: ""
+        type: string
+
+concurrency:
+  # Never let two deploys race for the same environment; queue instead of cancel,
+  # because cancelling mid-deploy can leave a half-updated service.
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write # required to mint the OIDC token for WIF
+
+jobs:
+  preflight:
+    name: Check deployment is configured
+    runs-on: ubuntu-latest
+    outputs:
+      configured: ${{ steps.check.outputs.configured }}
+    steps:
+      - id: check
+        run: |
+          if [[ -n "${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}" \
+             && -n "${{ vars.GCP_SERVICE_ACCOUNT }}" \
+             && -n "${{ vars.GCP_PROJECT_ID }}" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Deployment not configured. Run 'make deploy' locally with GITHUB_REPO set, then add the printed repository variables. See DEPLOYMENT.md."
+          fi
+
+  deploy:
+    name: Deploy to Gemini Enterprise Agent Platform
+    runs-on: ubuntu-latest
+    needs: preflight
+    if: needs.preflight.outputs.configured == 'true'
+
+    env:
+      GOOGLE_CLOUD_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      GOOGLE_CLOUD_LOCATION: ${{ vars.GCP_REGION || 'us-central1' }}
+      GOOGLE_GENAI_USE_VERTEXAI: "1"
+      CONTENTFORGE_ENVIRONMENT: ${{ inputs.environment || vars.CONTENTFORGE_ENVIRONMENT || 'dev' }}
+      CONTENTFORGE_ENABLE_CLOUD_TRACE: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,gcp]"
+
+      # The same gates bootstrap.sh runs locally. A deploy that skips its tests
+      # is how a broken agent reaches production.
+      - name: Unit tests
+        run: pytest tests/ -q
+
+      - name: Evaluation suite
+        run: contentforge-eval
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy agent
+        run: |
+          set -euo pipefail
+          TARGET="${{ vars.CONTENTFORGE_DEPLOY_TARGET || 'agent-engine' }}"
+          echo "Deploying to ${TARGET} (${CONTENTFORGE_ENVIRONMENT})"
+
+          if [[ "$TARGET" == "agent-engine" ]]; then
+            adk deploy agent_engine \
+              --project "$GOOGLE_CLOUD_PROJECT" \
+              --region "$GOOGLE_CLOUD_LOCATION" \
+              --display_name "ContentForge (${CONTENTFORGE_ENVIRONMENT})" \
+              --description "Multi-agent editorial pipeline: plans, researches, drafts, reviews and human-gates blog posts." \
+              --trace_to_cloud --otel_to_cloud \
+              ./content_forge
+          else
+            adk deploy cloud_run \
+              --project "$GOOGLE_CLOUD_PROJECT" \
+              --region "$GOOGLE_CLOUD_LOCATION" \
+              --service_name "contentforge-${CONTENTFORGE_ENVIRONMENT}" \
+              --app_name contentforge \
+              --trace_to_cloud --with_ui \
+              ./content_forge
+          fi
+
+      - name: Summarise
+        if: always()
+        run: |
+          {
+            echo "### ContentForge deployment"
+            echo ""
+            echo "| Field | Value |"
+            echo "|---|---|"
+            echo "| Commit | \`${GITHUB_SHA::8}\` |"
+            echo "| Project | \`${GOOGLE_CLOUD_PROJECT}\` |"
+            echo "| Region | \`${GOOGLE_CLOUD_LOCATION}\` |"
+            echo "| Environment | \`${CONTENTFORGE_ENVIRONMENT}\` |"
+            echo "| Target | \`${{ vars.CONTENTFORGE_DEPLOY_TARGET || 'agent-engine' }}\` |"
+            echo "| Result | ${{ job.status }} |"
+          } >> "$GITHUB_STEP_SUMMARY"

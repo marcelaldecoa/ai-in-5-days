@@ -1,0 +1,65 @@
+[project]
+name = "content-forge"
+version = "1.0.0"
+description = "ContentForge - a multi-agent editorial pipeline built on Google ADK that turns a topic brief into a fact-checked, brand-compliant, SEO-reviewed blog post."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+# Core runtime. Deliberately small so the agent boots and the test suite runs
+# on a laptop with no Google Cloud project attached (see README "Running locally").
+dependencies = [
+    "google-adk>=2.5.0",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.2",
+    "python-dotenv>=1.0",
+    "structlog>=24.1",
+    "opentelemetry-api>=1.24",
+    "opentelemetry-sdk>=1.24",
+    "sqlalchemy>=2.0",
+    "aiosqlite>=0.20",
+]
+
+[project.optional-dependencies]
+# Everything that needs a real GCP project. Kept optional so `pip install -e .`
+# stays fast and hermetic in CI; the code degrades gracefully when these are absent.
+gcp = [
+    "google-cloud-secret-manager>=2.20",
+    "google-cloud-logging>=3.10",
+    "google-cloud-dlp>=3.16",
+    "opentelemetry-exporter-gcp-trace>=1.6",
+    "google-cloud-aiplatform>=1.60",
+    "cloud-sql-python-connector[pg8000]>=1.9",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.5",
+]
+
+[project.scripts]
+contentforge-eval = "content_forge.evaluation.run_eval:main"
+contentforge-doctor = "content_forge.doctor:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["content_forge*"]
+
+[tool.setuptools.package-data]
+content_forge = ["evaluation/golden/*.json", "evaluation/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]

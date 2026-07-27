@@ -1,0 +1,79 @@
+{
+  "_comment": "Binding brand rules retrieved by retrieve_brand_style_guide. Merged in order: default <- content_types[type] <- matching topic_overlays.",
+  "default": {
+    "tone": "authoritative",
+    "reading_level": "grade 9-11",
+    "max_words": 1600,
+    "citation_policy": "Every factual claim carries an inline Markdown link to a primary or reputable source. Never cite a source you have not retrieved.",
+    "banned_phrases": [
+      "revolutionary",
+      "game-changing",
+      "world-class",
+      "cutting-edge",
+      "seamlessly",
+      "leverage synergies",
+      "in today's fast-paced world",
+      "unlock the power of",
+      "delve into",
+      "it's important to note that"
+    ],
+    "required_sections": [
+      "Introduction",
+      "Key takeaways",
+      "Conclusion"
+    ]
+  },
+  "content_types": {
+    "blog_post": {
+      "tone": "authoritative",
+      "max_words": 1600,
+      "required_sections": ["Introduction", "Key takeaways", "Conclusion"]
+    },
+    "tutorial": {
+      "tone": "technical",
+      "reading_level": "grade 10-12",
+      "max_words": 2400,
+      "required_sections": [
+        "What you'll build",
+        "Prerequisites",
+        "Step-by-step walkthrough",
+        "Troubleshooting",
+        "Next steps"
+      ],
+      "citation_policy": "Link to official documentation for every API or CLI command referenced. Version-pin all code samples."
+    },
+    "case_study": {
+      "tone": "authoritative",
+      "max_words": 1800,
+      "required_sections": [
+        "Customer background",
+        "The challenge",
+        "The solution",
+        "Measured results",
+        "What's next"
+      ],
+      "citation_policy": "Every metric must be attributed to a named, customer-approved source. Never estimate a customer result."
+    },
+    "announcement": {
+      "tone": "conversational",
+      "max_words": 900,
+      "required_sections": ["What's new", "Why it matters", "How to get started"]
+    }
+  },
+  "topic_overlays": [
+    {
+      "match_keywords": ["security", "vulnerability", "encryption", "compliance", "gdpr"],
+      "banned_phrases": ["unhackable", "100% secure", "bulletproof", "military-grade"],
+      "citation_policy": "Security claims require a primary source (CVE, NIST, vendor advisory, or standards body). Reputable-tier sources are insufficient on their own."
+    },
+    {
+      "match_keywords": ["benchmark", "performance", "latency", "throughput", "faster"],
+      "citation_policy": "Every performance number must state the hardware, dataset and version it was measured on, and link to the published methodology."
+    },
+    {
+      "match_keywords": ["health", "medical", "clinical", "financial", "investment"],
+      "banned_phrases": ["guaranteed returns", "cure", "risk-free", "proven to treat"],
+      "citation_policy": "Regulated-domain claims require a primary peer-reviewed or regulatory source, and the post must carry the standard 'not professional advice' disclaimer."
+    }
+  ]
+}

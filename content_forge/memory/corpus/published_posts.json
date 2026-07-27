@@ -1,0 +1,66 @@
+[
+  {
+    "post_id": "post-2024-11-004",
+    "title": "Choosing a Vector Database for Production RAG",
+    "url": "https://blog.example.com/choosing-a-vector-database-for-production-rag",
+    "published_on": "2024-11-12",
+    "primary_keyword": "vector database",
+    "summary": "Compares managed and self-hosted vector databases on recall, cost and operational burden, with a decision matrix for production retrieval-augmented generation workloads."
+  },
+  {
+    "post_id": "post-2025-01-011",
+    "title": "Chunking Strategies That Actually Improve Retrieval Quality",
+    "url": "https://blog.example.com/chunking-strategies-retrieval-quality",
+    "published_on": "2025-01-23",
+    "primary_keyword": "chunking strategies",
+    "summary": "Benchmarks fixed-size, recursive, semantic and layout-aware chunking across three corpora, showing where each wins and how chunk overlap affects recall and cost."
+  },
+  {
+    "post_id": "post-2025-03-002",
+    "title": "How We Cut LLM Inference Costs by 60% With Model Routing",
+    "url": "https://blog.example.com/cutting-llm-inference-costs-model-routing",
+    "published_on": "2025-03-04",
+    "primary_keyword": "model routing",
+    "summary": "A production account of routing requests between small and large models by task complexity, including the classifier design, the fallback ladder and the measured cost and latency deltas."
+  },
+  {
+    "post_id": "post-2025-05-007",
+    "title": "Evaluating RAG Systems: Metrics That Predict User Satisfaction",
+    "url": "https://blog.example.com/evaluating-rag-systems-metrics",
+    "published_on": "2025-05-19",
+    "primary_keyword": "rag evaluation metrics",
+    "summary": "Explains faithfulness, answer relevance and context precision, correlates each against human satisfaction scores, and provides a golden-dataset harness for regression testing."
+  },
+  {
+    "post_id": "post-2025-07-003",
+    "title": "Observability for LLM Agents: Tracing Multi-Step Reasoning",
+    "url": "https://blog.example.com/observability-for-llm-agents",
+    "published_on": "2025-07-08",
+    "primary_keyword": "llm agent observability",
+    "summary": "Covers OpenTelemetry span design for agent pipelines, correlating structured logs with traces, and the intent-versus-outcome logging pattern for debugging tool selection failures."
+  },
+  {
+    "post_id": "post-2025-09-006",
+    "title": "Prompt Injection in Tool-Using Agents: Practical Defences",
+    "url": "https://blog.example.com/prompt-injection-tool-using-agents",
+    "published_on": "2025-09-15",
+    "primary_keyword": "prompt injection",
+    "summary": "Catalogues injection vectors against agents that browse and call tools, and evaluates input screening, tool allow-listing, and human confirmation gates as layered mitigations."
+  },
+  {
+    "post_id": "post-2025-10-001",
+    "title": "Human-in-the-Loop Patterns for Autonomous Agents",
+    "url": "https://blog.example.com/human-in-the-loop-patterns",
+    "published_on": "2025-10-02",
+    "primary_keyword": "human in the loop",
+    "summary": "Describes when to interrupt an agent for approval, how to design the approval payload so a reviewer can decide in seconds, and how to make confirmation gates tamper-resistant."
+  },
+  {
+    "post_id": "post-2025-12-009",
+    "title": "Context Window Management: Compaction, Summarisation and Caching",
+    "url": "https://blog.example.com/context-window-management",
+    "published_on": "2025-12-11",
+    "primary_keyword": "context window management",
+    "summary": "Compares sliding windows, recursive summarisation and provider-side context caching for long-running agent sessions, with measured token and latency impact for each."
+  }
+]

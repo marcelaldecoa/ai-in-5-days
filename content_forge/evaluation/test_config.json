@@ -1,0 +1,7 @@
+{
+  "_comment": "Thresholds for AgentEvaluator. Tool-trajectory is scored loosely (0.6) because several orderings are legitimate - what matters is that the required tools are reached, not the exact sequence. Response match is scored on semantic similarity rather than exact text, since generation is non-deterministic.",
+  "criteria": {
+    "tool_trajectory_avg_score": 0.6,
+    "response_match_score": 0.5
+  }
+}
